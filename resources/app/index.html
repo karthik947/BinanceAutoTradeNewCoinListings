@@ -1,0 +1,187 @@
+<html>
+<head>
+  <title>Binance Autobuy New Coin Listings</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="crypto-js.js"></script>
+  
+  <script> window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min')  </script>    
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./crypto-js.js"></script>
+    
+</head>
+<body>
+    
+    
+<div class="container">
+    
+    <h1>Binance Autobuy New Coin Listings</h1>
+    <p>This is a tool allows you to buy a coin as soon as its listed on Binance exchange</p>
+    
+    
+    <!-- API Keys --->
+    <br>
+    <div class="row">    
+    <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#keys">Keys</button>
+    </div>
+    <div id="keys" class="collapse">
+    <br>
+    <div class="row form-group col-sm-8">
+        <input class="form-control" type="password" id="apikey" placeholder="API Key">
+    </div>
+    <div class="row form-group col-sm-8">
+        <input class="form-control" type="password" id="seckey" placeholder="Secret Key">
+    </div>
+    </div>
+    
+    <!-- Settings --->
+    <br>
+    <div class="row">    
+    <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#settings">Settings</button>
+    </div>
+    <div id="settings" class="collapse">
+    <br>
+    <div class="row">
+    <div class="col-sm-8">
+    <div class="card">
+    <div id="chead" class="card-header">
+         <h6>Auto-Buy : <input id="tradeon" type="checkbox" value="true"></h6>
+    </div>
+    <div class="card-body">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Funds from:</span>
+      </div>
+      <select id="ffrom" class="col-sm-2 chosen-select form-control" >
+            <option value="TUSD">TUSD</option>
+      </select>
+    </div>
+        
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Funds Amt:</span>
+      </div>
+      <input class="col-sm-2 form-control" type="text" id="famount" value="1000">
+    </div>
+     
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Auto-Sell when Trailing Stop:</span>
+      </div>
+      <input id="asell" type="checkbox" checked>
+    </div>
+        
+     <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Trailing Stop:</span>
+      </div>
+      <input class="col-sm-2 form-control" type="text" id="tstop" value="2">
+    </div>
+        
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Check Coin Market Ranking:</span>
+      </div>
+      <input id="crank" type="checkbox" checked>
+    </div>
+        
+     <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="col-sm-2 input-group-text">Rank Less Than:</span>
+      </div>
+      <input class="col-sm-2 form-control" type="text" id="crankval" value="200">
+      <h6>Continue if missing<input type="checkbox" id="skipim" checked></h6>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header bg-dark text-white row">
+        <h6>Trade Live Status</h6></div>
+        <div class="card-body">
+        <div class="row">
+            <h1 id="status1" >102$</h1> <div id="status4" class="text-success"><h2 id="status2" >(2.3%)</h2></div>
+        </div>
+        <div class="row">
+            <button id="exitTradeNow" type="button" class="btn btn-sm btn-success" >Exit Now</button>
+        </div>
+        <br>
+        <div class="card card-body bg-warning">
+            <h6 id="status3" > 100(TUSD) -> 0.034(BTC) -> 234(CVC) -> 0.038(BTC) -> 102(TUSD) </h6>
+        </div>    
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!--
+    <h4>Trades Executed:</h4>
+    <table id="tradeslist" class="table">
+        <thead>
+            <tr>
+                <th>Comments</th>
+                <th>Date/Time</th>
+                <th>Coin 1</th>
+                <th>Coin 2</th>
+                <th>Coin 3</th>
+                <th>Coin 4</th>
+                <th>Coin 5</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>-->   
+    
+    
+</div>
+<script src="index.js"></script>
+</body>    
+    
+<script>
+    
+    document.getElementById("exitTradeNow").disabled = true;
+    
+    $("#tradeon").click(function(){
+         if(this.checked) {
+           $("#chead").addClass("bg-danger text-white");  
+         }
+        else{
+            $("#chead").removeClass("bg-danger text-white");
+        }
+    });
+    
+    $("#asell").click(function(){
+         if(this.checked) {
+           document.getElementById("tstop").disabled = false;  
+         }
+        else{
+            document.getElementById("tstop").disabled = true;  
+        }
+    });
+    
+    $("#crank").click(function(){
+         if(this.checked) {
+           document.getElementById("crankval").disabled = false;  
+           document.getElementById("skipim").disabled = false;  
+         }
+        else{
+            document.getElementById("crankval").disabled = true;  
+           document.getElementById("skipim").disabled = true;
+        }
+    });
+    
+    
+</script>
+</html>
